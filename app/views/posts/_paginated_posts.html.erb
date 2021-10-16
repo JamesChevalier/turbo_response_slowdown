@@ -1,0 +1,39 @@
+<turbo-frame id="posts">
+  <div>
+    <div>
+      <nav aria-label="Post list">
+        <% if pagy.prev %>
+          <%= button_to search_posts_path(page: pagy.prev, query: params[:query]), method: :post do %>
+            ‹&nbsp;Prev
+          <% end %>
+        <% else %>
+          <span>
+            ‹&nbsp;Prev
+          </span>
+        <% end %>
+
+        <span>
+          <%= form_with url: search_posts_path(query: params[:query]) do |form| %>
+            Page
+            <%= form.text_field :page, value: pagy.page, type: "number", min: 1, max: pagy.last %>
+            of <%= pagy.last %>
+          <% end %>
+        </span>
+
+        <% if pagy.next %>
+          <%= button_to search_posts_path(page: pagy.next, query: params[:query]), method: :post do %>
+            Next&nbsp;›
+          <% end %>
+        <% else %>
+          <span>
+            Next&nbsp;›
+          </span>
+        <% end %>
+      </nav>
+    </div>
+  </div>
+
+  <div>
+    <%= render partial: "posts/post", collection: posts, as: :post %>
+  </div>
+</turbo-frame>

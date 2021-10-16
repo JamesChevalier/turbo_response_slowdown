@@ -1,0 +1,4 @@
+<%= link_to post, id: dom_id(post), data: { turbo_frame: "_top" } do %>
+  <h2><%= post.title %></h2>
+  <div><%= post.comments.size %> Comments</div>
+<% end %>

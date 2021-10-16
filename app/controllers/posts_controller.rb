@@ -1,6 +1,20 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
 
+  def search
+    # @pagy, @posts = pagy(Post.includes(:comments).order("created_at DESC"))
+    @pagy, @posts = pagy(Post.order("created_at DESC"))
+
+    respond_to do |format|
+      format.html { render partial: "posts/paginated_posts", locals: {posts: @posts, pagy: @pagy} }
+      format.turbo_stream do
+        render turbo_stream: turbo_stream.update(
+          :posts,
+          partial: "posts/paginated_posts", locals: {posts: @posts, pagy: @pagy}
+        )
+      end
+    end
+  end
 
   # GET /posts or /posts.json
   def index
