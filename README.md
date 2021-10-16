@@ -1,24 +1,14 @@
-# README
+# Turbo Response Slowdown
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The problem is that response times consistently and gradually increase when there is an n+1 query and prosopite is enabled.
 
-Things you may want to cover:
+## How To Reproduce
 
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+- Install the required gems with `bundle install`
+- Run the migrations with `bundle exec rails db:migrate`
+- Set up the seed data with `bundle exec rails db:seed`
+- Run `bundle exec rails s` to start the server
+- Visit <http://localhost:3000/posts>
+- Open the Network tab of the browser developer tools
+- If "Duration" is not visible, right click on the column title bar, navigate into "Timings" and select "Duration"
+- Click the "Next" button until you reach the end or you've seen the duration value noticably increase enough
